@@ -1,0 +1,13 @@
+# Default values for ibm-mq.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: post-sync-trigger
+argocdhook: PostSync
+serviceaccount: pipeline
+container:
+  image: replace
+  imagePullPolicy: Always
+  command: replace
+  args:
+    - replace

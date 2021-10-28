@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.name }}
+  annotations:
+    argocd.argoproj.io/hook: {{ .Values.argocdhook }}
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Values.serviceaccount }}
+      containers:
+      - name: post-sync-pipeline
+        image: {{ .Values.container.image }}
+        imagePullPolicy: {{ .Values.container.imagePullPolicy }}
+        command: ["{{ .Values.container.command}}"]
+        args:
+        {{- toYaml .Values.container.args | nindent 12 }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      terminationGracePeriodSeconds: 30
